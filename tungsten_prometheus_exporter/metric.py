@@ -16,6 +16,10 @@ from tungsten_prometheus_exporter.utils import my_import
 from tungsten_prometheus_exporter.scrape import Scraper, StopScrape
 from tungsten_prometheus_exporter.config import Config
 
+import urllib3
+
+# Disable TLS warnings
+urllib3.disable_warnings()
 
 METRIC_NAME_PREFIX = "tungsten"
 METRICS_REGISTRY = {}
@@ -204,7 +208,7 @@ class MetricCollection(UserList):
         super().__init__()
         self.scrapers = Group()
         self.scrape_pool = Pool(size=Config().scraper.pool_size)
-        self.session = Session(auth=auth)
+        self.session = Session(auth=auth，verify=False)
         self.session.mount(
             "http://",
             HTTPAdapter(
