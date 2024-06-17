@@ -17,9 +17,10 @@ from tungsten_prometheus_exporter.scrape import Scraper, StopScrape
 from tungsten_prometheus_exporter.config import Config
 
 import urllib3
+from urllib3.exceptions import InsecureRequestWarning
 
-# Disable TLS warnings
-urllib3.disable_warnings()
+# Disable TLS InsecureRequestWarning warning
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 METRIC_NAME_PREFIX = "tungsten"
 METRICS_REGISTRY = {}
